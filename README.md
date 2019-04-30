@@ -15,23 +15,25 @@ The data of this project is same as [TextCNN](https://github.com/ShaneTian/TextC
 - Train/Test split: 20351/2261
 
 ## Model architecture
-```sh
+```
+Model: "model"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #
 =================================================================
-input_1 (InputLayer)         [(None, 150)]             0
+input_data (InputLayer)      [(None, 150)]             0
 _________________________________________________________________
 embedding (Embedding)        (None, 150, 512)          18117632
 _________________________________________________________________
 masking (Masking)            (None, 150, 512)          0
 _________________________________________________________________
-bidirectional (Bidirectional (None, 200)               490400
+Bi-LSTM (Bidirectional)      (None, 200)               490400
 _________________________________________________________________
 dense (Dense)                (None, 18)                3618
 =================================================================
 Total params: 18,611,650
 Trainable params: 18,611,650
 Non-trainable params: 0
+_________________________________________________________________
 ```
 ## Model parameters
 - Padding size: 150
@@ -48,37 +50,25 @@ Non-trainable params: 0
 ### Train result
 Use 20351 samples after 15 epochs:
 
-| Loss | Accuracy | Precision | Recall | Val loss | Val accuracy | Val precision | Val recall |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.0754 | 0.9906 | 0.9923 | 0.9889 | 0.3775 | 0.9136 | 0.9251 | 0.9096 |
+| Loss | Accuracy | Val loss | Val accuracy |
+| --- | --- | --- | --- |
+| 0.0783 | 0.9888 | 0.3638 | 0.9194 |
 ### Test result
 Use 2261 samples:
 
-| Accuracy | Precision | Recall | F1-Measure |
+| Accuracy | Macro-Precision | Macro-Recall | Macro-F1 |
 | --- | --- | --- | --- |
-| 0.9350 | 0.9455 | 0.9292 | **0.9373** |
-### Confusion matrix
-```
-Confusion matrix, without normalization
-[[234   0   0   1   0   0   0   0   0   0   0   0   2   0   0   0   3   0]
- [  0  51   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]
- [  0   0  62   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0]
- [  0   0   0 319   0   0   1   1   0   0   0   0   0   0   0   0   0   0]
- [  0   0   0   0  55   1   1   2   0   0   0   0   1   0   0   0   0   2]
- [  0   0   0   0   1  58   3   9   1   0   0   0   0   0   0   0   0   1]
- [  0   0   0   0   0   1  90   5   3   0   0   0   0   0   0   0   0   0]
- [  2   0   0   2   4  16   6 284   7   0   0   0   0   1   0   0   1   6]
- [  2   0   0   1   2   0   4  10 110   1   0   0   0   0   0   0   0   1]
- [  0   0   0   0   0   0   0   0   0  56   0   0   0   0   0   0   0   0]
- [  0   0   0   0   0   0   0   0   0   0  40   0   0   0   0   0   1   0]
- [  0   0   0   0   0   0   0   0   0   0   0  66   0   0   0   0   1   0]
- [  2   0   0   1   0   0   0   1   0   0   0   0 254   0   0   0   0   1]
- [  0   0   0   0   0   1   0   2   1   0   0   0   0  13   0   0   0   1]
- [  0   0   0   1   0   0   0   0   0   0   0   0   0   0  47   0   0   0]
- [  0   1   1   0   0   0   0   0   0   0   0   0   0   0   1  67   0   0]
- [  0   0   0   0   0   0   0   2   0   0   0   0   0   0   0   0 186   0]
- [  1   0   1   2   4   2   1   9   1   0   0   0   1   0   0   0   1 122]]
-```
+| 0.9341 | 0.9351 | 0.9323 | **0.9328** |
+### Images
+#### Accuracy
+![Accuracy](https://github.com/ShaneTian/Bi-LSTM-classification/blob/master/results/2019-04-29-15-56-39/acc.jpg)
+
+#### Loss
+![Loss](https://github.com/ShaneTian/Bi-LSTM-classification/blob/master/results/2019-04-29-15-56-39/loss.jpg)
+
+#### Confusion matrix
+![Confusion matrix](https://github.com/ShaneTian/Bi-LSTM-classification/blob/master/results/2019-04-29-15-56-39/confusion_matrix.jpg)
+
 ### Usage
 ```
 usage: train.py [-h] [-t TEST_SAMPLE_PERCENTAGE] [-p PADDING_SIZE]
